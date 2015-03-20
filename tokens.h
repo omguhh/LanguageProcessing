@@ -27,4 +27,3 @@
 #define SEMI 23
 
 
-#define MAXIDENT 256
