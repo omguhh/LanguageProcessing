@@ -1,15 +1,15 @@
-#define procedure 13
-#define is 1
-#define begin 2
-#define end 3
-#define if 4
-#define then 5
-#define else 6
-#define end if 7
-#define for 8
-#define in 9
-#define loop 10
-#define end loop 11
+#define PROCEDURE 13
+#define IS 1
+#define BEGIN 2
+#define END 3
+#define IF 4
+#define THEN 5
+#define ELSE 6
+#define END IF 7
+#define FOR 8
+#define IN 9
+#define LOOP 10
+#define END LOOP 11
 
 #define ID 14
 #define INT 15
