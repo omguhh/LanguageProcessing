@@ -1,32 +1,30 @@
-#define PROCEDURE 13
+#define PROCEDURE 10
 #define IS 1
 #define BEGIN 2
 #define END 3
 #define IF 4
 #define THEN 5
 #define ELSE 6
-#define END IF 7
-#define FOR 8
-#define IN 9
-#define LOOP 10
-#define END LOOP 11
+#define FOR 7
+#define IN 8
+#define LOOP 9
 
-#define ID 14
-#define INT 15
-#define PLUS 16
-#define MINUS 17
-#define STAR 18
+#define ID 11
+#define INT 12
+#define PLUS 13
+#define MINUS 14
+#define STAR 15
 
-#define LT 19
-#define GT 20
+#define LT 16
+#define GT 17
 
-#define EQ 21
-#define NEQ 22
+#define EQ 18
+#define NEQ 19
 
-#define GTE 23
-#define LTE 24
-#define ASSIGN 25
-#define SEMI 26
+#define GTE 20
+#define LTE 21
+#define ASSIGN 22
+#define SEMI 23
 
 
 #define MAXIDENT 256
