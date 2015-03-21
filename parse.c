@@ -38,37 +38,26 @@ program(int depth)
 {
  rule("program",depth);
  lex();
- if(symb==NAME){ 
- lex();
- if(symb==IS) {
- lex();
- multidefinitions(depth+1);
- if(symb==END) {
- lex();
- if(symb!=NAME){ error("PROCEDURE","END NAME EXPECTED\n");} 
-	
+ if(symb==NAME)   {  lex();
+ if(symb==IS)     {  lex();   multidefinitions(depth+1); 
+ if(symb==TBEGIN) {  lex();   mutlicommands(depth+1);
+ if(symb==END)    {  lex();  
+ if(symb!=NAME){ error("PROCEDURE","END NAME EXPECTED\n");	} 
+				}
+  			}
+		} 
 	}
-} 
-
-} 
- 
-
- //if(symb!=TBEGIN) {
- // { error("PROCEDURE","BEGIN EXPECTED\n");}
- // mutlicommands(depth+1);
-//  lex();
-//}
-
-
- 
 }
+
+
 //<defs> ::= <def>; [<defs>]
 //correct
 multidefinitions(int depth) 
 {
  rule("defs",depth);
  definition(depth);
- if(symb==SEMI) { lex(); multidefinitions(depth+1); } 
+ if(symb==SEMI) { lex(); multidefinitions(depth+1);  } 
+
 }
 //wtf is supposed to happen here lmao???????????
 // <def> ::= <name> : Integer
@@ -79,10 +68,12 @@ definition(int depth)
  lex();
  if(symb==COLO) {
  lex();
-    if(symb!=NUMBER)
-      { error("DEF","CAN ONLY DEFINE INTEGERS\n"); }
-  }
+ if(symb!=INTEGER) { error("DEF","CAN ONLY DEFINE TYPE INTEGERS\n"); }
+ lex();
+	}
 }
+
+
 //<commands> ::= <command>; [<commands>]
 mutlicommands(int depth) 
 {
@@ -90,6 +81,8 @@ mutlicommands(int depth)
  command(depth);
  if (symb==SEMI) { lex();  }
 }
+
+
 //<command> ::= <assign> | <if> | <for>
 command(int depth)
 {  rule("command",depth);
