@@ -5,22 +5,25 @@
 #define SEMI 5
 #define ASSIGN 6
 
-#define IF 7
-#define THEN 8
-#define ELSE 9
-#define ENDIF 10
-#define FOR 11
-#define IN 12
-#define TO 13
-#define LOOP 14
-#define ENDLOOP 15
+#define NUMBER 7
+#define NAME 8
 
-#define LT 16
-#define EQ 17
-#define LTE 18
-#define NEQ 19
+#define IF 9
+#define THEN 10
+#define ELSE 11
+#define ENDIF 12
+#define FOR 13
+#define IN 14
+#define TO 15
+#define LOOP 16
+#define ENDLOOP 17
 
-#define PLUS 20
-#define MINUS 21
-#define STAR 22
-#define COLO 23
+#define LT 18
+#define EQ 19
+#define LTE 20
+#define NEQ 21
+
+#define PLUS 22
+#define MINUS 23
+#define STAR 24
+#define COLO 25
