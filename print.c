@@ -14,7 +14,7 @@ char * showSymb(int symb)
   case SEMI: return ";";
   case ASSIGN: return ":=";
 
-  case NUMBER: return "INT";
+  case NUMBER: return "NUMBER";
   case NAME: return "NAME";
 
   case IF: return "if";
@@ -36,6 +36,8 @@ char * showSymb(int symb)
   case MINUS: return "-";
   case STAR: return "*";
   case COLO: return ":";
+
+  case EOF: return "EOF";
 
   default: printf("bad symbol: %d",symb);
    }
