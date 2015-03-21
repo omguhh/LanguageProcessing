@@ -8,6 +8,8 @@
 #define FOR 7
 #define IN 8
 #define LOOP 9
+#define ENDLOOP 24
+#define ENDIF 25
 
 #define PLUS 13
 #define MINUS 14
@@ -23,3 +25,4 @@
 #define LTE 21
 #define ASSIGN 22
 #define SEMI 23
+#define COLO 26
