@@ -37,27 +37,33 @@ lex()
 program(int depth)
 {
  rule("program",depth);
- if(symb!=NAME){ error("PROCEDURE","NAME EXPECTED\n"); } //procedure must be followed by name
  lex();
+ if(symb==NAME){ 
+ lex();  
 
- if(symb!=IS) {
-   { error("PROCEDURE","IS EXPECTED\n");}
+if(symb==IS) {
+   
   multidefinitions(depth+1);
   lex();
-}  
- if(symb!=BEGIN) {
-  { error("PROCEDURE","BEGIN EXPECTED\n");}
-  commands(depth+1);
-  lex();
-}
 
-if(symb!=END) 
+if(symb==END) 
 {
- { error("PROCEDURE","END EXPECTED\n");} 
-
  lex();
  if(symb!=NAME){ error("PROCEDURE","END NAME EXPECTED\n");} 
-}
+	
+	}
+} 
+
+} 
+ 
+
+ //if(symb!=TBEGIN) {
+ // { error("PROCEDURE","BEGIN EXPECTED\n");}
+ // mutlicommands(depth+1);
+//  lex();
+//}
+
+
  
 }
 //<defs> ::= <def>; [<defs>]
@@ -81,11 +87,11 @@ definition(int depth)
   }
 }
 //<commands> ::= <command>; [<commands>]
-mutli_commands(int depth) 
+mutlicommands(int depth) 
 {
- rule("commands",depth);
+ rule("mutli_commands",depth);
  command(depth);
- if (symb==SEMI) { lex(); multi_commands(depth+1); }
+ if (symb==SEMI) { lex();  }
 }
 //<command> ::= <assign> | <if> | <for>
 command(int depth)
@@ -96,9 +102,9 @@ command(int depth)
       case IF: lex();
                ifComm(depth+1);
                break;
-      case FOR: lex();
-                  forComm(depth+1);
-                  break;
+      //case FOR: lex();
+       //           forComm(depth+1);
+      //            break;
       default: error("command","NAME/IF/FOR/PRINT/WHILE/identifier expected\n");
    }
 }
@@ -193,7 +199,7 @@ base(int depth)
 {  rule("base",depth);
    switch(symb)
    {  case NAME: break;
-      case INTEGER: break;
+      case NUMBER: break;
       default: error("base","(, identifier or integer expected\n");
    }
    lex();
