@@ -37,17 +37,10 @@ lex()
 program(int depth)
 {
  rule("program",depth);
- lex();
  if(symb==NAME){ 
- lex();  
-
-if(symb==IS) {
-   
-  multidefinitions(depth+1);
-  lex();
-
-if(symb==END) 
-{
+ if(symb==IS) {
+ multidefinitions(depth+1);
+ if(symb==END) {
  lex();
  if(symb!=NAME){ error("PROCEDURE","END NAME EXPECTED\n");} 
 	
