@@ -63,11 +63,15 @@ multidefinitions(int depth)
  definition(depth);
  if(symb==SEMI) { lex(); multidefinitions(depth+1); } 
 }
-
+//wtf is supposed to happen here lmao???????????
 definition(int depth) 
 {
  rule("def",depth);
+ if(symb!=NAME){ error("DEF","NAME EXPECTED\n"); } //procedure must be followed by name
+ lex();
+ if(symb==COLO) {
  
+  }
 }
 
 mutli_commands(int depth) 
@@ -122,18 +126,38 @@ ifComm(int depth)
 
 //need to add for command
 
+forComm(int depth)
+{  rule("for",depth);
+   if(symb!=NAME) {error("FOR","NAME EXPECTED\n");}
+   if(symb!=IN) 
+   error("FOR","IN expected\n");
+   lex();
+   //WTF DO YOU PUT FOR <NUMBER> .. <NUMBER> ?!!!?!
+
+}
+
+
 condexp(int depth)
 {  rule("condexp",depth);
    expr(depth+1);
-   switch(symb)
-   {  case LT:
-      case LTE:
-      case EQ:
-      case NEQ: lex();
-               expr(depth+1);
-               return;
-      default: error("condexp","comparison operator expected\n");
-   }
+   lex();
+   bop(depth+1);
+   expr(depth+1);
+   lex();
+}
+
+bop(int depth)
+{
+ rule("bop",depth);
+ switch(symb) 
+  {
+    case LT:
+    case EQ:
+    case LTE:
+    case NEQ:lex();
+             return;
+    default: error("bop","comparison operator expected\n");
+  }
 }
 
 expr(int depth)
