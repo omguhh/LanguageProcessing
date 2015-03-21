@@ -3,10 +3,11 @@
 %}
 
 NUMBER     [0-9]
-NAME 	   [a-z]*         
+NAME 	   [a-zA-z][a-zA-z0-9]*
+      
 %%
 
-"procedure" { return PROCEDURE;}
+"procedure" 	{ return PROCEDURE;}
 "is" 		{ return IS;}
 "begin"		{return TBEGIN;}
 "end"		{ return END;}
@@ -25,11 +26,11 @@ NAME 	   [a-z]*
 "=" 		{ return EQ;}
 "<=" 		{ return LTE;}
 "/=" 		{ return NEQ;}
-":" 		{ return COLO;}
 "+"  		{ return PLUS;}
 "-"		{ return MINUS;}  
+":"		{ return COLO;}
 "*" 		{ return STAR;}
-"':'" 		{ return COLO;}
+
 {NUMBER}+ 	{ return NUMBER; }
 {NAME} 		{ return NAME; }
 <<EOF>>	 	{return EOF;}
