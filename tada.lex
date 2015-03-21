@@ -2,7 +2,7 @@
 #include "tokens.h"
 %}
 
-NUMBER    [0-9]
+NUMBER     [0-9]
 NAME 	   [a-zA-Z]         
 %%
 
@@ -28,9 +28,6 @@ NAME 	   [a-zA-Z]
 "+"  		{ return PLUS;}
 "-"		{ return MINUS;}  
 "*" 		{ return STAR;}
-"/" 		{ return SLASH;}
-"(" 		{ return LBRA;}
-")" 		{ return RBRA;}
 "<" 		{ return LT;}
 "<=" 		{ return LTE;}
 "==" 		{ return EQ;}
