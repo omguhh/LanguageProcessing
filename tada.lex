@@ -3,39 +3,44 @@
 %}
 
 NUMBER     [0-9]
-NAME 	   [a-zA-Z]         
+NAME 	   [a-zA-Z0-9]*         
 %%
 
+"procedure" { return PROCEDURE;}
+"is" 		{ return IS;}
+"begin"		{return BEGIN;}
+"end"		{ return END;}
 ";" 		{ return SEMI;}
-":" 		{ return COLO;}
+":=" 		{ return ASSIGN;}
+
 {NUMBER}+ 	{ return NUMBER; }
 {NAME}+ 	{ return NAME; }
-"procedure" 	{ return PROCEDURE;}
-":=" 		{ return ASSIGN;}
+
 "if"		{ return IF;}
-"end if" 	{return ENDIF;}
 "then"		{ return THEN;}
 "else"		{ return ELSE;}
-"end"		{ return END;}
-
-"do" 		{ return DO;}
-"is" 		{ return IS;}
+"end if" 	{return ENDIF;}
 "for" 		{ return FOR;}
 "in" 		{ return IN;}
+".."		{return TO;}
 "loop" 		{ return LOOP;}
 "end loop" 	{ return ENDLOOP;}
 
-"+"  		{ return PLUS;}
-"-"		{ return MINUS;}  
-"*" 		{ return STAR;}
 "<" 		{ return LT;}
+"=" 		{ return EQ;}
 "<=" 		{ return LTE;}
-"==" 		{ return EQ;}
-"!=" 		{ return NEQ;}
-">" 		{ return GT;}
-">=" 		{ return GTE;}
+"\=" 		{ return NEQ;}
 
-<<EOF>>	 {return EOF;}
+":" 		{ return COLO;}
+
+
+"+"  		{ return PLUS;}
+"-"			{ return MINUS;}  
+"*" 		{ return STAR;}
+":" 		{ return COLO;}
+
+
+<<EOF>>	 	{return EOF;}
 
 
 [ \t\n]+     /* eat up whitespace */
