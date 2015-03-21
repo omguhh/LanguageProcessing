@@ -1,0 +1,6 @@
+procedure Program is 
+x : Integer; 
+y : Integer; 
+z : Integer;
+
+end Program;
