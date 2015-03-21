@@ -1,6 +1,6 @@
 #define PROCEDURE 69
 #define IS 2
-#define BEGIN 3
+#define TBEGIN 3
 #define END 4
 #define SEMI 5
 #define ASSIGN 6
