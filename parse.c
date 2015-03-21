@@ -37,8 +37,11 @@ lex()
 program(int depth)
 {
  rule("program",depth);
+ lex();
  if(symb==NAME){ 
+ lex();
  if(symb==IS) {
+ lex();
  multidefinitions(depth+1);
  if(symb==END) {
  lex();
@@ -75,6 +78,7 @@ definition(int depth)
  if(symb!=NAME){ error("DEF","NAME EXPECTED\n"); } //procedure must be followed by name
  lex();
  if(symb==COLO) {
+ lex();
     if(symb!=NUMBER)
       { error("DEF","CAN ONLY DEFINE INTEGERS\n"); }
   }
@@ -105,6 +109,7 @@ command(int depth)
 //correct
 assign(int depth)
 {  rule("assign",depth);
+   lex();
    if(symb!=NAME){ error("ASSIGN","NAME EXPECTED\n"); } //assign must start with name
    if(symb!=ASSIGN)
    error("assign",":= expected\n");
