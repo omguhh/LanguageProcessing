@@ -30,7 +30,7 @@ char * showSymb(int symb)
   case LT:return "<";
   case EQ: return "=";
   case LTE: return "<=";
-  case NEQ: return "\=";
+  case NEQ: return "/=";
 
   case PLUS: return "+";
   case MINUS: return "-";
