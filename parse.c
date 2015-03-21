@@ -40,20 +40,23 @@ program(int depth)
  if(symb!=NAME){ error("PROCEDURE","NAME EXPECTED\n"); } //procedure must be followed by name
  lex();
 
- if(symb==IS) 
-{
+ if(symb!=IS) {
+   { error("PROCEDURE","IS EXPECTED\n");}
   multidefinitions(depth+1);
   lex();
 }  
- if(symb==BEGIN) 
-{
+ if(symb!=BEGIN) {
+  { error("PROCEDURE","BEGIN EXPECTED\n");}
   commands(depth+1);
   lex();
 }
 
-if(symb==END) 
+if(symb!=END) 
 {
+ { error("PROCEDURE","END EXPECTED\n");} 
+
  lex();
+ if(symb!=NAME){ error("PROCEDURE","END NAME EXPECTED\n");} 
 }
  
 }
@@ -123,7 +126,7 @@ ifComm(int depth)
    command(depth+1);  
    }
 
-   if(symb==ENDIF){
+  if(symb==ENDIF){
   lex();
   command(depth+1);
   }
