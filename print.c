@@ -7,25 +7,25 @@ extern char * yytext;
 
 char * showSymb(int symb)
 {  switch(symb)   {  	
-  case PROCEDURE: return "procedure";
-  case IS: return "is";
-  case BEGIN: return "begin";
-  case END: return "end";
+  case PROCEDURE: return "PROCEDURE";
+  case IS: return "IS";
+  case TBEGIN: return "BEGIN";
+  case END: return "END";
   case SEMI: return ";";
   case ASSIGN: return ":=";
 
   case NUMBER: return "NUMBER";
   case NAME: return "NAME";
 
-  case IF: return "if";
-  case THEN: return "then";
-  case ELSE: return "else";
-  case ENDIF: return "end if";
-  case FOR: return "for";
-  case IN: return "in";
-  case TO: return "to";
-  case LOOP: return "loop";
-  case ENDLOOP: return "endloop";
+  case IF: return "IF";
+  case THEN: return "THEN";
+  case ELSE: return "ELSE";
+  case ENDIF: return "END IF";
+  case FOR: return "FOR";
+  case IN: return "IN";
+  case TO: return "TO";
+  case LOOP: return "LOOP";
+  case ENDLOOP: return "END LOOP";
 
   case LT:return "<";
   case EQ: return "=";
