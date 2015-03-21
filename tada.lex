@@ -14,7 +14,7 @@ NAME 	   [a-zA-Z0-9]*
 ":=" 		{ return ASSIGN;}
 
 {NUMBER}+ 	{ return NUMBER; }
-{NAME}+ 	{ return NAME; }
+{NAME} 	{ return NAME; }
 
 "if"		{ return IF;}
 "then"		{ return THEN;}
