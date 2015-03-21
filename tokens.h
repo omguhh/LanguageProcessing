@@ -9,8 +9,6 @@
 #define IN 8
 #define LOOP 9
 
-#define ID 11
-#define INT 12
 #define PLUS 13
 #define MINUS 14
 #define STAR 15
@@ -25,5 +23,3 @@
 #define LTE 21
 #define ASSIGN 22
 #define SEMI 23
-
-
