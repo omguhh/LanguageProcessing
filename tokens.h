@@ -1,28 +1,26 @@
 #define PROCEDURE 10
-#define IS 1
-#define BEGIN 2
-#define END 3
-#define IF 4
-#define THEN 5
-#define ELSE 6
-#define FOR 7
-#define IN 8
-#define LOOP 9
-#define ENDLOOP 24
-#define ENDIF 25
+#define IS 2
+#define BEGIN 3
+#define END 4
+#define SEMI 5
+#define ASSIGN 6
 
-#define PLUS 13
-#define MINUS 14
-#define STAR 15
+#define IF 7
+#define THEN 8
+#define ELSE 9
+#define ENDIF 10
+#define FOR 11
+#define IN 12
+#define TO 13
+#define LOOP 14
+#define ENDLOOP 15
 
 #define LT 16
-#define GT 17
-
-#define EQ 18
+#define EQ 17
+#define LTE 18
 #define NEQ 19
 
-#define GTE 20
-#define LTE 21
-#define ASSIGN 22
-#define SEMI 23
-#define COLO 26
+#define PLUS 20
+#define MINUS 21
+#define STAR 22
+#define COLO 23
