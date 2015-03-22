@@ -30,7 +30,7 @@ NAME 	   [a-zA-z][a-zA-z0-9]*
 "-"		{ return MINUS;}  
 ":"		{ return COLO;}
 "*" 		{ return STAR;}
-
+"Integer"	{return INTEGER;}
 {NUMBER}+ 	{ return NUMBER; }
 {NAME} 		{ return NAME; }
 <<EOF>>	 	{return EOF;}
