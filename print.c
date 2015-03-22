@@ -35,7 +35,9 @@ char * showSymb(int symb)
   case PLUS: return "+";
   case MINUS: return "-";
   case STAR: return "*";
-  case COLO: return ":";
+  case COLO: return ":"; 
+
+  case INTEGER: return "Integer";
 
   case EOF: return "EOF";
 
