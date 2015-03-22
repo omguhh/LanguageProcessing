@@ -27,3 +27,5 @@
 #define MINUS 23
 #define STAR 24
 #define COLO 25
+
+#define INTEGER 42
