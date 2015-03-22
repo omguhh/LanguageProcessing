@@ -39,10 +39,10 @@ program(int depth)
  rule("program",depth);
  lex();
  if(symb==NAME)   {  lex();
- if(symb==IS)     {  lex();   multidefinitions(depth+1); 
- if(symb==TBEGIN) {  lex();   mutlicommands(depth+1);
+ if(symb!=IS)     { error("PROCEDURE","IS EXPECTED\n");	}   {  lex();   multidefinitions(depth+1); 
+ if(symb!=TBEGIN) { error("PROCEDURE","BEGIN EXPECTED\n");	}   {  lex();   mutlicommands(depth+1); 
  if(symb==END)    {  lex();  
- if(symb!=NAME){ error("PROCEDURE","END NAME EXPECTED\n");	} 
+ if(symb!=NAME)   { error("PROCEDURE","END NAME EXPECTED\n");	} 
 				}
   			}
 		} 
@@ -56,8 +56,11 @@ multidefinitions(int depth)
 {
  rule("defs",depth);
  definition(depth);
- if(symb==SEMI) { lex(); multidefinitions(depth+1);  } 
-
+ if(symb==SEMI) {  lex();
+ if(symb==NAME){ multidefinitions(depth+1);  } 
+	}
+   else
+    error("defs","; EXPECTED");
 }
 //wtf is supposed to happen here lmao???????????
 // <def> ::= <name> : Integer
@@ -66,7 +69,7 @@ definition(int depth)
  rule("def",depth);
  if(symb!=NAME){ error("DEF","NAME EXPECTED\n"); } //procedure must be followed by name
  lex();
- if(symb==COLO) {
+if(symb==COLO) {
  lex();
  if(symb!=INTEGER) { error("DEF","CAN ONLY DEFINE TYPE INTEGERS\n"); }
  lex();
@@ -74,12 +77,13 @@ definition(int depth)
 }
 
 
+
 //<commands> ::= <command>; [<commands>]
 mutlicommands(int depth) 
 {
  rule("mutli_commands",depth);
  command(depth);
- if (symb==SEMI) { lex();  }
+ if (symb==SEMI) { lex(); mutlicommands(depth+1); }
 }
 
 
@@ -102,10 +106,8 @@ command(int depth)
 //correct
 assign(int depth)
 {  rule("assign",depth);
-   lex();
-   if(symb!=NAME){ error("ASSIGN","NAME EXPECTED\n"); } //assign must start with name
-   if(symb!=ASSIGN)
-   error("assign",":= expected\n");
+   if(symb!=NAME){ error("ASSIGN","NAME EXPECTED\n"); } lex(); //assign must start with name
+   if(symb!=ASSIGN){    error("assign",":= expected\n"); }
    lex();
    expr(depth+1);
 }
@@ -162,6 +164,7 @@ bop(int depth)
     case EQ:
     case LTE:
     case NEQ:lex();
+	     expr(depth+1);
              return;
     default: error("bop","comparison operator expected\n");
   }
