@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "tokens.h"
 
 int symb;
@@ -43,6 +42,7 @@ program(int depth)
  if(symb!=TBEGIN) { error("PROCEDURE","BEGIN EXPECTED\n");	}   {  lex();   mutlicommands(depth+1); 
  if(symb==END)    {  lex();  
  if(symb!=NAME)   { error("PROCEDURE","END NAME EXPECTED\n");	} 
+ lex();
 				}
   			}
 		} 
@@ -76,14 +76,17 @@ if(symb==COLO) {
 	}
 }
 
-
-
 //<commands> ::= <command>; [<commands>]
+//THIS IS SO MESSY MY JESUS
 mutlicommands(int depth) 
 {
  rule("mutli_commands",depth);
- command(depth);
- if (symb==SEMI) { lex(); mutlicommands(depth+1); }
+ command(depth+1);
+ if (symb==SEMI) { lex(); 
+	if(symb==NAME||symb==IF) {
+	mutlicommands(depth+1);
+			} 
+		}
 }
 
 
@@ -116,20 +119,18 @@ assign(int depth)
 ifComm(int depth)
 {  rule("if",depth);
    condexpr(depth+1);
-   if(symb!=THEN) 
-   error("if","THEN expected\n");
+   //lex();
+   if(symb!=THEN) {   error("if","THEN expected\n"); }
    lex();
-  command(depth+1);
-   if(symb==ELSE)
+   command(depth+1);
+   lex();
+   if(symb!=ELSE) {   error("if","ELSE expected\n"); }
    {  lex();
-   command(depth+1);  
+      command(depth+1);  
    }
-
-  if(symb==ENDIF){
-  lex();
-  command(depth+1);
-  }
-
+   lex();
+  if(symb!=ENDIF) {   error("if","END IF expected\n"); }
+{  lex();  }
 }
 
 //need to add for command
@@ -148,10 +149,11 @@ ifComm(int depth)
 //could be right??
 condexpr(int depth)
 {  rule("condexpr",depth);
+  if(symb!=THEN) {
    expr(depth+1);
    bop(depth+1);
    expr(depth+1);
-   lex();
+	}
 }
 //<bop> ::= < | = | <= | /=
 //correct 
@@ -191,12 +193,14 @@ term(int depth)
 //<base> := <int> | <name>
 base(int depth)
 {  rule("base",depth);
+   if(symb!=THEN) {
    switch(symb)
    {  case NAME: break;
       case NUMBER: break;
-      default: error("base","(, identifier or integer expected\n");
+      default: error("base"," identifier or integer expected\n");
    }
    lex();
+	}
 }
 
 main(int c,char ** argv)
