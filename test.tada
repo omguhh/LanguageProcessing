@@ -2,5 +2,12 @@ procedure Program is
 x : Integer; 
 y : Integer; 
 z : Integer;
-
+begin 
+x:=0;
+y:=0;
+if x< y then
+z:=1;
+else
+z := 1;
+end if;
 end Program;
