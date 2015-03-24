@@ -3,6 +3,8 @@
 #include "tokens.h"
 
 int symb;
+char * name1;
+char * name2; 
 
 extern printSymb();
 extern char* showSymb(int);
@@ -37,32 +39,32 @@ program(int depth)
 {
  rule("program",depth);
  lex();
- if(symb==NAME)   {  lex();
- if(symb!=IS)     { error("PROCEDURE","IS EXPECTED\n");	}   {  lex();   multidefinitions(depth+1); 
- if(symb!=TBEGIN) { error("PROCEDURE","BEGIN EXPECTED\n");	}   {  lex();   mutlicommands(depth+1); 
- if(symb==END)    {  lex();  
- if(symb!=NAME)   { error("PROCEDURE","END NAME EXPECTED\n");	} 
+ if(symb==NAME)   { name1=yytext(); lex();  //get value of NAME here & set it to name1
+ if(symb==IS)     { lex();   multidefinitions(depth+1); }
+ if(symb!=TBEGIN) { error("PROCEDURE","BEGIN EXPECTED\n");  }   {  lex();   mutlicommands(depth+1); 
+ if(symb==END)    { error("PROCEDURE","END EXPECTED\n");  }{  lex();  
+ if(symb!=NAME)   { error("PROCEDURE","END NAME EXPECTED\n"); }{ name2=yytext();
+ if(name1!=name2) { error("PROCEDURE","END NAME AND INITAL NAME MUST BE THE SAME\n"); }
+//CHECK TO SEE IF NAME1==NAME2 
  lex();
-				}
-  			}
-		} 
-	}
+        }
+        }
+    } 
+  }
 }
 
-
 //<defs> ::= <def>; [<defs>]
-//correct
 multidefinitions(int depth) 
 {
  rule("defs",depth);
  definition(depth);
  if(symb==SEMI) {  lex();
  if(symb==NAME){ multidefinitions(depth+1);  } 
-	}
+  }
    else
     error("defs","; EXPECTED");
 }
-//wtf is supposed to happen here lmao???????????
+
 // <def> ::= <name> : Integer
 definition(int depth) 
 {
@@ -73,22 +75,20 @@ if(symb==COLO) {
  lex();
  if(symb!=INTEGER) { error("DEF","CAN ONLY DEFINE TYPE INTEGERS\n"); }
  lex();
-	}
+  }
 }
 
 //<commands> ::= <command>; [<commands>]
-//THIS IS SO MESSY MY JESUS
 mutlicommands(int depth) 
 {
  rule("mutli_commands",depth);
  command(depth+1);
- if (symb==SEMI) { lex(); 
-	if(symb==NAME||symb==IF) {
-	mutlicommands(depth+1);
-			} 
-		}
+  if(symb==SEMI) { lex(); 
+  if(symb==NAME||symb==IF) {
+  mutlicommands(depth+1);
+      } 
+    }
 }
-
 
 //<command> ::= <assign> | <if> | <for>
 command(int depth)
@@ -99,14 +99,13 @@ command(int depth)
       case IF: lex();
                ifComm(depth+1);
                break;
-      //case FOR: lex();
-       //           forComm(depth+1);
-      //            break;
-      default: error("command","NAME/IF/FOR/PRINT/WHILE/identifier expected\n");
+      case FOR: lex();
+                 forComm(depth+1);
+                 break;
+      default: error("command","NAME/IF/FOR expected\n");
    }
 }
 //<assign> ::= <name> := <expr>
-//correct
 assign(int depth)
 {  rule("assign",depth);
    if(symb!=NAME){ error("ASSIGN","NAME EXPECTED\n"); } lex(); //assign must start with name
@@ -115,7 +114,6 @@ assign(int depth)
    expr(depth+1);
 }
 //<if> ::= if <condexpr> then <commands> [else <commands>] end if
-//i know this works
 ifComm(int depth)
 {  rule("if",depth);
    condexpr(depth+1);
@@ -124,7 +122,7 @@ ifComm(int depth)
    lex();
    command(depth+1);
    lex();
-   if(symb!=ELSE) {   error("if","ELSE expected\n"); }
+   if(symb==ELSE) 
    {  lex();
       command(depth+1);  
    }
@@ -133,27 +131,32 @@ ifComm(int depth)
 {  lex();  }
 }
 
-//need to add for command
 //<for> ::= for <name> in <number> .. <number> loop <commands> end loop
-// forComm(int depth)
-// {  rule("for",depth);
-//    if(symb!=NAME) {error("FOR","NAME EXPECTED\n");}
-//    if(symb!=IN) 
-//    error("FOR","IN expected\n");
-//    lex();
-//    //WTF DO YOU PUT FOR <NUMBER> .. <NUMBER> ?!!!?!
-
-// }
+forComm(int depth)
+{
+  rule("for",depth);
+  if(symb!=NAME){error("FOR","NAME EXPECTED\n");}
+  lex();
+  if(symb!=IN){error("FOR","IN EXPECTED\n");}
+  lex();
+  if(symb!=NUMBER){error("FOR","NUMBER EXPECTED\n");}
+  lex();
+  if(symb!=TO){error("FOR","TO EXPECTED\n");}
+  lex();
+  if(symb!=NUMBER){error("FOR","SECOND NUMBER ARGUMENT EXPECTED\n");}
+  lex();
+  if(symb!=ENDLOOP){error("FOR","ENDLOOP EXPECTED\n");}
+  lex();
+}
 
 //<condexpr> ::= <expr> <bop> <expr>
-//could be right??
 condexpr(int depth)
 {  rule("condexpr",depth);
   if(symb!=THEN) {
    expr(depth+1);
    bop(depth+1);
    expr(depth+1);
-	}
+  }
 }
 //<bop> ::= < | = | <= | /=
 //correct 
@@ -166,7 +169,7 @@ bop(int depth)
     case EQ:
     case LTE:
     case NEQ:lex();
-	     expr(depth+1);
+       expr(depth+1);
              return;
     default: error("bop","comparison operator expected\n");
   }
@@ -181,7 +184,6 @@ expr(int depth)
    }
 }
 //<term> ::= <base> [* <term>]
-
 term(int depth)
 {  rule("term",depth);
    base(depth+1);
@@ -200,7 +202,7 @@ base(int depth)
       default: error("base"," identifier or integer expected\n");
    }
    lex();
-	}
+  }
 }
 
 main(int c,char ** argv)
