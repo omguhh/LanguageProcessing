@@ -82,7 +82,7 @@ program(int depth)
 
  if(symb!=TBEGIN) { error("PROCEDURE","BEGIN EXPECTED\n");  }   {  lex();   mutlicommands(depth+1); 
 
- if(symb==END)    { error("PROCEDURE","END EXPECTED\n");  }{  lex();  
+ if(symb!=END)    { error("PROCEDURE","END EXPECTED\n");  }{  lex();  
 
  if(symb!=NAME)   { error("PROCEDURE","END NAME EXPECTED\n"); }{ 
 
