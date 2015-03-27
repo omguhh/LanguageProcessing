@@ -25,7 +25,7 @@ parser:
 	gcc -o parser print.o lex.yy.o parse.o
 
 comp:   nodes.h tokens.h parse.c simp.lex print.c comp.c pretty.c
-	flex simp.lex
+	flex tada.lex
 	gcc -c lex.yy.c
 	gcc -c parse.c
 	gcc -c print.c
