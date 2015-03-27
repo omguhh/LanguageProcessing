@@ -1,0 +1,26 @@
+	AREA ASMain,CODE
+__main	PROC
+	EXPORT __main
+x	RN 1
+; x : Integer
+y	RN 2
+; y : Integer
+z	RN 3
+; z : Integer
+	MOV R1,#0x0
+; x := 0
+	MOV R2,#0x1
+; y := 1
+	CMP R1,R2
+; x<y
+	BGE IFALSE0
+	MOV R3,#0x0
+; z := 0
+	B IFEND0
+IFALSE0
+	MOV R3,#0x1
+; z := 1
+IFEND0
+PLOOP	B PLOOP
+	ENDP
+	END
