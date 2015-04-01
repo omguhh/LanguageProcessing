@@ -1,0 +1,12 @@
+procedure myProgram is
+a : Integer;
+b : Integer;
+begin
+a :=40;
+b :=42;
+if a < b then
+a := a + 1;
+else
+a := a - 1;
+end if;
+end myProgram;
