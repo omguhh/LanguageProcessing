@@ -1,0 +1,11 @@
+procedure aProgram is 
+c : Integer;
+d : Integer;
+begin
+c := 99;
+d := 42;
+for q in 5 .. 15 loop
+c := c - 2;
+d := d + 42;
+end loop;
+end aProgram;
